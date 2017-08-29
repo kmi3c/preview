@@ -1,6 +1,6 @@
 Ruby preview app
 ================
-[![Build Status](https://travis-ci.org/kmi3c/preview.svg?branch=master)](https://travis-ci.org/kmi3c/prewiev)
+[![Build Status](https://travis-ci.org/kmi3c/preview.svg?branch=master)](https://travis-ci.org/kmi3c/preview)
 
 ### :hash: App description
 -------------
