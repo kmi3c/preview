@@ -18,7 +18,11 @@ class App < Roda
       # TODO: decode proper image name and check time availability.
       # TODO: check CSFR/XHR request.
       # TODO: configure x-sendfile
-      slide = Slide.new(File.new(Slide.decode_url(image))) rescue nil
+      slide = begin
+                Slide.new(File.new(Slide.decode_url(image)))
+              rescue
+                nil
+              end
       file = slide.file
       response.headers['Content-Type'] = 'image/png'
       response.headers['Content-Length'] = file.size.to_s

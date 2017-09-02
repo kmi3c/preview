@@ -4,10 +4,10 @@ source 'https://rubygems.org'
 
 ruby '2.4.1'
 
+gem 'config'
 gem 'haml'
 gem 'roda'
 gem 'ruby-filemagic'
-gem 'config'
 
 group :assets do
   gem 'sass'

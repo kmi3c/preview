@@ -19,7 +19,7 @@ class Slide
   end
 
   def to_h
-    { name: name, url: url, date: date , type: type }
+    { name: name, url: url, date: date, type: type }
   end
 
   def file
@@ -37,12 +37,12 @@ class Slide
   def self.all
     slides = { albums: [] }
     albums = []
-    Dir.glob([Settings.gallery.path,'**/'].join('/')).each do |node|
+    Dir.glob([Settings.gallery.path, '**/'].join('/')).each do |node|
       albums << node
     end
     albums.each do |album|
       object = { name: File.basename(album, '.*'), images: [] }
-      images = Dir.glob([album,'*'].join('/')).collect do |image|
+      images = Dir.glob([album, '*'].join('/')).collect do |image|
         Slide.new(File.open(image)).to_h
       end
       object[:images] = images
