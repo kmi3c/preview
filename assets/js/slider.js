@@ -1,3 +1,4 @@
+//Slider
 $(function() {
   alert('ready!');
 });

@@ -1,6 +1,7 @@
 rvm:
   - 2.4.1
+before_install:
+  - sudo apt-get install -y libmagic-dev
 script:
-  - bundle exec rspec
   - bundle exec rubocop
 cache: bundler

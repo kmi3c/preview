@@ -15,7 +15,7 @@ class App < Roda
     end
     # render JSON with images info or specific image
     r.on 'i', String do |image|
-      # TODO: decode proper image name and check time availability.
+      # TODO: check time availability.
       # TODO: check CSFR/XHR request.
       # TODO: configure x-sendfile
       slide = begin
@@ -31,7 +31,7 @@ class App < Roda
     end
     # render JSON for galleries
     r.on 'i' do
-      # TODO: collect info about files/albums and render it as json.
+      # TODO: check CSFR/XHR request.
       Slide.all
     end
   end
