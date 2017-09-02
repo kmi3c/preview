@@ -9,7 +9,8 @@ class Slide
     @file_path = file.path
     self.date = file.stat.ctime
     self.name = File.basename(file.path, '.*')
-    self.type = FileMagic.new(FileMagic::MAGIC_MIME).file(file_path).split('/').first
+    self.type = FileMagic.new(FileMagic::MAGIC_MIME).file(file_path)
+                         .split('/').first
     generate_url(file)
     self
   end
@@ -36,17 +37,13 @@ class Slide
 
   def self.all
     slides = { albums: [] }
-    albums = []
-    Dir.glob([Settings.gallery.path, '**/'].join('/')).each do |node|
-      albums << node
-    end
-    albums.each do |album|
-      object = { name: File.basename(album, '.*'), images: [] }
-      images = Dir.glob([album, '*'].join('/')).collect do |image|
-        Slide.new(File.open(image)).to_h
-      end
-      object[:images] = images
-      slides[:albums] << object
+    Dir.glob([Settings.gallery.path, '**/'].join('/')).each do |album|
+      slides[:albums] << {
+        name: File.basename(album, '.*'),
+        images: Dir.glob([album, '*'].join('/')).collect do |image|
+          Slide.new(File.open(image)).to_h
+        end
+      }
     end
     slides
   end

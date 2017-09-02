@@ -9,6 +9,10 @@ require 'ruby-filemagic'
 require 'config'
 require_relative '../models/slide'
 Config.load_and_set_settings(
-  [Dir.pwd, 'config', "settings.#{ENV['RACK_ENV'] || 'development'}.yml"].join('/')
+  [
+    Dir.pwd,
+    'config',
+    "settings.#{ENV['RACK_ENV'] || 'development'}.yml"
+  ].join('/')
 )
 Settings.root_path = Dir.pwd
