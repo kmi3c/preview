@@ -6,15 +6,16 @@ ruby '2.4.1'
 
 gem 'haml'
 gem 'roda'
+gem 'ruby-filemagic'
+gem 'config'
 
 group :assets do
   gem 'sass'
 end
 group :development, :test do
   gem 'faker'
+  gem 'minitest'
   gem 'pry'
-  gem 'pry-stack'
-  gem 'pry-stack_explorer'
-  gem 'rspec'
+  gem 'pry-byebug'
   gem 'rubocop'
 end
