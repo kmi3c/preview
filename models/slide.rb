@@ -40,7 +40,7 @@ class Slide
     Dir.glob([Settings.gallery.path, '**/'].join('/')).each do |album|
       slides[:albums] << {
         name: File.basename(album, '.*'),
-        images: Dir.glob([album, '*'].join('/')).collect do |image|
+        files: Dir.glob([album, '*'].join('/')).collect do |image|
           Slide.new(File.open(image)).to_h
         end
       }
