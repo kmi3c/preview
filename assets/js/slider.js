@@ -1,4 +1,22 @@
 //Slider
+var Slider = {
+  constructor(selector){
+    this.elem = $(selector);
+    if(this.elem){
+      this.init();
+    }
+  },
+  init(){
+    load_data();
+    this.current_album = {
+      elem: elem.find('.album').first(),
+      index: 0,
+    };
+  },
+  load_data(){
+
+  }
+};
 $(function() {
   var slider = $('#slider');
   var gallery;
