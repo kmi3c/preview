@@ -1,83 +1,63 @@
 //Slider
 var Slider = {
-  constructor(selector){
+  init(selector){
     this.elem = $(selector);
     if(this.elem){
-      this.init();
+      this.load_data();
+      this.set_album();
+      this.set_events();
     }
-  },
-  init(){
-    load_data();
-    this.current_album = {
-      elem: elem.find('.album').first(),
-      index: 0,
-    };
+    return this;
   },
   load_data(){
-
+    var slider = this;
+    $.get('/i',function(data, status){
+      this.gallery = data;
+      $.each(this.gallery.albums, function(index, value){
+        slider.elem.append('<section class="album" id="album-'+index+'"><a href="#'+value.name+'">'+value.name+'</a></section>');
+        $.each(value.files, function(i,file){
+          if(file.type == 'image'){
+            $('#album-' + index).append('<img class="file" data-src="/i/'+ file.url +'"/>');
+          }
+        });
+      });
+    });
+  },
+  set_album(album = false){
+    album = album || this.elem.find('.album').first()
+    this.current_album = {
+      elem: album,
+      index: 0,
+    };
+    this.current_album.items = this.current_album.elem.find('.file');
+    this.current_album.items_len = this.current_album.items.length;
+  },
+  set_events(){
+    var slider = this;
+    $('.next').click(function() {
+      slider.next_file(1);
+      return false;
+    });
+    $('.prev').click(function() {
+      slider.next_file(-1);
+      return false;
+    });
+    this.elem.on('click', '.album', function() {
+      slider.set_album($(this));
+    });
+  },
+  next_file(increment){
+    this.current_album.index += increment;
+    if(this.current_album.index > this.current_album.items_len - 1) {
+      this.current_album.index = 0;
+    }
+    this.current_album.items.hide();
+    var item = $(this.current_album.items[this.current_album.index])
+    // TODO: preload more images.
+    item.attr('src',item.data('src'));
+    item.css('display','inline-block')
   }
 };
 $(function() {
-  var slider = $('#slider');
-  var gallery;
-    $.get('/i',function(data, status){
-      gallery = data;
-      $.each(gallery.albums, function(index, value){
-        slider.append('<section class="album" id="album-'+index+'"><a href="#'+value.name+'">'+value.name+'</a></section>');
-        $.each(value.files, function(i,file){
-          if(file.type == 'image'){
-            $('#album-' + index).append('<img class="file" src="/i/'+ file.url +'"/>');
-          }
-        });
-    });
-  });
-    var currentIndex = 0;
-    var currentAlbum = $('.album').first();
-    var items = currentAlbum.find('.file');
-    var itemAmt = items.length;
-
-    function cycleItems() {
-       var item = items.eq(currentIndex);
-       items.hide();
-       item.css('display','inline-block');
-    }
-
-    var autoSlide = setInterval(function() {
-          currentIndex += 1;
-        if (currentIndex > itemAmt - 1) {
-                currentIndex = 0;
-        }
-        items = currentAlbum.find('.file'),
-          cycleItems();
-    }, 3000);
-
-    $('.next').click(function() {
-        clearInterval(autoSlide);
-        currentIndex += 1;
-        if(currentIndex > itemAmt - 1) {
-          currentIndex = 0;
-        }
-        cycleItems();
-        false;
-    });
-
-    $('.prev').click(function() {
-          clearInterval(autoSlide);
-          currentIndex -= 1;
-        if (currentIndex < 0) {
-                currentIndex = itemAmt - 1;
-        }
-          cycleItems();
-        false;
-    });
-
-    slider.on('click', '.album', function() {
-      clearInterval(autoSlide);
-      items.hide();
-      currentIndex = 0;
-      currentAlbum = $(this);
-      items = currentAlbum.find('.file');
-      itemAmt = items.length;
-      cycleItems();
-    });
+  Slider.init('#slider');
 });

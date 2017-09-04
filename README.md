@@ -13,6 +13,7 @@ Simple preview app made while my fathernity to show famliy some pictures of my d
 | Name |  Version |
 | :--: | :---: |
 | [Ruby](https://www.ruby-lang.org) | 2.4.1 MRI |
+| [libmagic-dev](https://packages.debian.org/unstable/libdevel/libmagic-dev) | 1:5.29-3 |
 
 ### :book: Setup
 -------------
