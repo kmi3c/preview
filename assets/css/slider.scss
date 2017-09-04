@@ -3,12 +3,31 @@ html,body{
   padding: 0;
   background: #000;
   color: #FFF;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
   a{
     color: #FFF;
   }
+      width: 100%;
   #slider{
-      img{
-          display: none;
-      }
+    text-align: center;
+    .file{
+      display: none;
+      height: 100%;
+    }
+  }
+  nav {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    text-align: center;
+    background: #000;
+    opacity: 0.5;
+  }
+  #menu{
+    width: 10vw;
+    left: 0;
+    top: 0;
   }
 }

@@ -12,11 +12,14 @@ var Slider = {
     return this;
   },
   load_data(){
+    $('body').append('<nav id="menu"></nav>');
     var slider = this;
+    var menu = $('#menu');
     $.get('/i',function(data, status){
       this.gallery = data;
       $.each(this.gallery.albums, function(index, value){
-        slider.elem.append('<section class="album" id="album-'+index+'"><a href="#'+value.name+'">'+value.name+'</a></section>');
+        slider.elem.append('<section class="album" id="album-'+index+'"></section>');
+        menu.append('<a href="#'+value.name+'" data-album="'+index+'">'+value.name+'</a>');
         $.each(value.files, function(i,file){
           slider.draw_file(index,file);
         });
@@ -42,8 +45,8 @@ var Slider = {
       slider.next_file(-1);
       return false;
     });
-    this.elem.on('click', '.album', function() {
-      slider.set_album($(this));
+    $(document).on('click', '#menu a', function() {
+      slider.set_album($('#album-'+$(this).data('album')));
       slider.next_file(1);
     });
   },
