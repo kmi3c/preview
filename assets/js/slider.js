@@ -1,3 +1,7 @@
+$(window).on("contextmenu", function(e)
+{
+  return false;
+})
 //Slider
 var Slider = {
   init(selector, options = {}){
@@ -28,6 +32,9 @@ var Slider = {
   },
   set_album(album = false){
     album = album || this.elem.find('.album').first()
+    if(this.current_album){
+      this.current_album.items.hide();
+    }
     this.current_album = {
       elem: album,
       index: 0,

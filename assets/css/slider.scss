@@ -8,6 +8,14 @@ html,body{
   height: 100vh;
   a{
     color: #FFF;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 1.5em;
+    text-shadow: 3px 3px 5px #333;
+    outline: 0;
+    &:hover{
+      text-decoration: underline;
+    }
   }
       width: 100%;
   #slider{
@@ -17,17 +25,30 @@ html,body{
       height: 100%;
     }
   }
-  nav {
+  #menu{
     position: absolute;
-    bottom: 0;
-    width: 100vw;
-    text-align: center;
     background: #000;
     opacity: 0.5;
-  }
-  #menu{
+    text-align: center;
     width: 10vw;
     left: 0;
     top: 0;
+    a {
+      display: block;
+    }
+  }
+  .prev, .next{
+    position: absolute;
+    left: 0;
+    width: 25vw;
+    line-height: 100vh;
+    font-size: 3em;
+    &:hover{
+      text-decoration:none;
+    }
+  }
+  .next{
+    left: auto;
+    right: 0;
   }
 }
