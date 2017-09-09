@@ -24,10 +24,13 @@ class App < Roda
                 nil
               end
       file = slide.file
-      response.headers['Content-Type'] = 'image/png'
+      response.headers['Content-Type'] = FileMagic.new(FileMagic::MAGIC_MIME).file(file.path)
       response.headers['Content-Length'] = file.size.to_s
-      response.headers['X-Sendfile'] = file.path
-      response.body << file.read
+      if ENV['RACK_ENV'] == 'production'
+        response.headers['X-Sendfile'] = file.path
+      else
+        response.body << file.read
+      end
     end
     # render JSON for galleries
     r.on 'i' do
