@@ -1,12 +1,11 @@
-$(window).on("contextmenu", function(e)
-{
+$(window).on("contextmenu", function(e){
   return false;
-})
+});
 //Slider
 var Slider = {
   init(selector, options = {}){
     // TODO: merge options
-    this.options = { preload: 2 };
+    this.options = { preload: 4 };
     this.elem = $(selector);
     if(this.elem){
       this.load_data();
@@ -37,7 +36,7 @@ var Slider = {
     }
     this.current_album = {
       elem: album,
-      index: 0,
+      index: -1,
     };
     this.current_album.items = this.current_album.elem.find('.file');
     this.current_album.items_len = this.current_album.items.length;
@@ -61,10 +60,12 @@ var Slider = {
     this.current_album.index += increment;
     if(this.current_album.index > this.current_album.items_len - 1) {
       this.current_album.index = 0;
+    } else if(this.current_album.index < 0){
+      this.current_album.index = this.current_album.items_len - 1
     }
     this.current_album.items.hide();
     var item = $(this.current_album.items[this.current_album.index])
-    for(i = 0; i < this.options.preload; i++){
+    for(i = 0; i < (this.current_album.index + this.options.preload); i++){
       preload  = $(this.current_album.items[this.current_album.index + increment])
       if(!preload.attr('src')){
         preload.attr('src', preload.data('src'));
