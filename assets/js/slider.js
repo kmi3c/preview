@@ -55,6 +55,29 @@ var Slider = {
       slider.set_album($('#album-'+$(this).data('album')));
       slider.next_file(1);
     });
+    $(document).keyup(function(e){
+      switch(e.keyCode){
+        case 32:
+          slider.toggle_play();
+          break;
+        case 37:
+          slider.next_file(-1);
+          break;
+        case 39:
+          slider.next_file(1);
+          break;
+        case 13:
+          $(document).toggleFullScreen();
+          break;
+        default:
+          return false;
+      }
+    });
+
+  },
+  toggle_play(){
+    //TODO: Set autoplay with interval and leave reference in album.
+    //      Make sure to reset it when changing album. :)
   },
   next_file(increment){
     this.current_album.index += increment;

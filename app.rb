@@ -4,7 +4,7 @@
 class App < Roda
   plugin :json
   plugin :render, engine: 'haml'
-  plugin :assets, css: 'slider.scss', js: ['jquery-3.2.1.min.js', 'slider.js']
+  plugin :assets, css: 'slider.scss', js: ['jquery-3.2.1.min.js', 'jquery.fullscreen-min.js', 'slider.js']
   compile_assets
 
   route do |r|
